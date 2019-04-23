@@ -1,20 +1,5 @@
 <?php
-
   require_once("machine.php");
-
-  $submit = filter_input(INPUT_POST, 'submit');
-
-  if (isset($submit)) {
-    //Formulář byl odeslán
-    $coins = filter_input(INPUT_POST, 'coins');
-
-    if (buyProduct($insertedCoins)) {
-      echo "Bageta připravena.";
-    } else {
-      echo "Bagetu nelze prodat.";
-    }
-
-}
  ?>
 <!DOCTYPE html>
 <html lang="cs" dir="ltr">
@@ -25,34 +10,30 @@
   <body>
     <?php
 
-    $coins=99;
-
+    $insertedCoins = 50;
       $myMachine = new Machine();
      ?>
 
-    <p>V automatu je peněz: <?php echo $myMachine->productsCount; ?></p>
-    <p>V automatu je baget celkem: <?php echo $myMachine->machineCoins; ?></p>
-    <p>Ve výdejním slotu je: <?php echo $myMachine->pickupSlot; ?></p>
-    <p>Slot vrácených peněz: <?php echo $myMachine->returnCoinsSlot; ?></p>
-<hr>
 <h1>Product Machine</h1>
 <table>
   <ul>
-    <li>Product1 25Kč</li>
+    <li>Product 1 : 45Kč <input type="radio" name="product1" value="" /> </li>
+    <li>Product 2 : 45Kč <input type="radio" name="product2" value="" /> </li>
   </ul>
 </table>
 <form action="index.php" method="post">
-  <label for="coins"> Coins </label>
-  <input type="number" name='coins' value="" />
+  <label for="coins"> Coins: </label>
+  <?php echo $insertedCoins; ?>
+  <input type="number" name='insertedCoins' value="" />
   <input type="submit" name="submit" value="Odeslat" />
 </form>
  <?php
-  $myMachine->buyProduct($coins);
+  $myMachine->buyProduct($insertedCoins, "2C");
   ?>
-      <p>V automatu je peněz: <?php echo $myMachine->productsCount; ?></p>
-      <p>V automatu je baget celkem: <?php echo $myMachine->machineCoins; ?></p>
-      <p>Ve výdejním slotu je: <?php echo $myMachine->pickupSlot; ?></p>
-      <p>Slot vrácených peněz: <?php echo $myMachine->returnCoinsSlot; ?></p>
+      <p>V automatu je peněz: <?php echo $myMachine->getMachineCoins(); ?></p>
+      <p>V automatu je baget celkem: <?php echo $myMachine->getProductsCount(); ?></p>
+      <p>Ve výdejním slotu je: <b> <?php echo $myMachine->getPickupSlot(); echo $myMachine->getProduct(); ?> </b> </p>
+      <p>Slot vrácených peněz: <b> <?php echo $myMachine->getReturnCoinsSlot(); ?> </b> </p>
 
 
   </body>
