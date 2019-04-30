@@ -47,7 +47,7 @@ if (!empty($submit)) {
         ?>
     </table>
     <form method="POST" action="index.php">
-        <label for="insertedCoins">Daj som peňjází-></label>
+        <label for="insertedCoins">Vložte peníze:</label>
         <input type="number" id="insertedCoins" name="insertedCoins"><br>
         <?php
         foreach ($stats['products'] as $key => $product) {

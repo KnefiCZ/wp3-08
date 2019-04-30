@@ -1,5 +1,5 @@
 {
-    "machineCoins": 170,
+    "machineCoins": 230,
     "products": {
         "1A": {
             "name": "S\u00edrov\u00fd mlsoun",
@@ -9,7 +9,7 @@
         "2C": {
             "name": "Golf",
             "price": 60,
-            "count": 9
+            "count": 8
         },
         "3B": {
             "name": "Lososov\u00e1",
