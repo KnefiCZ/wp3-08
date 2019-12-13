@@ -3,13 +3,16 @@ require_once("machine.php");
 
   $machine = new machine();
   $stats = $machine->getStats();
-  $submit = filter_input(INPUT_POST, "submit");
+  if ($stats != false) {
+    $submit = filter_input(INPUT_POST, "submit");
 
-if (!empty($submit)) {
-    $insertedCoins = filter_input(INPUT_POST, "insertedCoins");
-    $productCode = filter_input(INPUT_POST, "productCode");
-    $status = $machine->buyProduct($insertedCoins, $productCode);
-}
+  if (!empty($submit)) {
+      $insertedCoins = filter_input(INPUT_POST, "insertedCoins");
+      $productCode = filter_input(INPUT_POST, "productCode");
+      $status = $machine->buyProduct($insertedCoins, $productCode);
+  }
+  }
+
 ?>
 
 <!DOCTYPE html>
@@ -22,7 +25,7 @@ if (!empty($submit)) {
 </head>
 
 <body>
-    <h1>Jedlo</h1>
+    <h1>Foodee</h1>
 
     <h3>Automat má <?= $machine->getMachineCoins() ?> cash.</h3>
 
@@ -68,7 +71,9 @@ if (!empty($submit)) {
         <span>Automat ti vrátí: <?= $machine->getReturnCoinsSlot() ?></span>
         <?php
     }
-    ?>
+    else { ?>
+      <p>Soubor není otevřený</p>
+  <?php }   ?>
 </body>
 </html>
 <!-- Dik mateheweee-->

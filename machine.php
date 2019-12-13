@@ -24,10 +24,10 @@ class Machine
             return("Vyberte si produkt...");
         }
 
-        $machineCoins = self::getMachineCoins();
-        $productName = self::getProductName($productCode);
-        $productPrice = self::getProductPrice($productCode);
-        $productCount = self::getProductCount($productCode);
+        $machineCoins = $this->getMachineCoins();
+        $productName = $this->getProductName($productCode);
+        $productPrice = $this->getProductPrice($productCode);
+        $productCount = $this->getProductCount($productCode);
         $returnCoins = $insertedCoins - $productPrice;
         if ($insertedCoins >= $productPrice) {
             if ($productCount > 0) {
@@ -53,7 +53,7 @@ class Machine
 
     public function getMachineCoins()
     {
-        $stats = self::getStats();
+        $stats = $this->getStats();
         return $stats['machineCoins'];
     }
 
@@ -69,30 +69,33 @@ class Machine
 
     private function getProductName($productCode)
     {
-        $stats = self::getStats();
+        $stats = $this->getStats();
         return $stats['products'][$productCode]['name'];
     }
 
     private function getProductPrice($productCode)
     {
-        $stats = self::getStats();
+        $stats = $this->getStats();
         return $stats['products'][$productCode]['price'];
     }
 
     private function getProductCount($productCode)
     {
-        $stats = self::getStats();
+        $stats = $this->getStats();
         return $stats['products'][$productCode]['count'];
     }
 
     public function getStats($file = "stats.json")
     {
-        return json_decode(file_get_contents($file), true);
+      if (file_exists($file)) {
+          return json_decode(file_get_contents($file), true);
+      }
+
     }
 
-    private function saveChanges($productCode, $productCount, $machineCoins)
+    private function saveChange($productCode, $productCount, $machineCoins)
     {
-        $stats = self::getStats();
+        $stats = $this->getStats();
         $stats['products'][$productCode]['count'] = $productCount;
         $stats['machineCoins'] = $machineCoins;
         file_put_contents("stats.json", json_encode($stats, JSON_PRETTY_PRINT));
